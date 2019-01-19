@@ -2,8 +2,8 @@ const request = require("request");
 const castle = require("./castle.js").Castle;
 
 
-castle.getHotels().then(response => {
+castle.getHotels("italy").then(response => {
   const hotels = response;
-  console.log(hotels);
+  Object.entries(hotels).forEach(([key, value]) => console.log(key, value));
 });
 
