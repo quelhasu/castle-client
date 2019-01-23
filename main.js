@@ -12,4 +12,4 @@ const castle = require("./castle.js").Castle;
 //   });
 // });
 
-castle.getHotels("france");
+castle.getHotels("germany");
