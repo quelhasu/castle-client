@@ -19,7 +19,11 @@
   "dependencies": {
     "axios": "^0.18.0",
     "cheerio": "^1.0.0-rc.2",
+    "date-and-time": "^0.6.3",
     "get-script-tag-vars": "^1.1.2",
+    "jquery": "^3.3.1",
+    "jsdom": "^13.1.0",
+    "puppeteer": "^1.11.0",
     "request": "^2.88.0"
   }
 }
