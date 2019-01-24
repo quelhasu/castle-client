@@ -3,6 +3,7 @@ const url = "https://www.relaischateaux.com/us/destinations/";
 var cheerio = require("cheerio");
 const puppeteer = require("puppeteer");
 const date = require("date-and-time");
+const firebase = require("firebase");
 
 var Castle = function() {};
 
@@ -26,17 +27,18 @@ Castle.prototype.getHotels2 = function(destination) {
   }
 };
 
-Castle.prototype.getHotels = function(destination) {
+Castle.prototype.getHotels = function(destination, db) {
   try {
     destination = destination.toLowerCase();
     var hotel_url = url + destination;
 
     (async () => {
+      db.goOnline();
       const browser = await puppeteer.launch({ headless: true, timeout: 0 });
       const page = await browser.newPage();
 
       // Get hotels of the 5th pages
-      for (let index = 1; index < 5; index++) {
+      for (let index = 1; index < 4; index++) {
         console.log("[#] Getting links... from " + hotel_url + "?page=" + index);
         await page.goto(hotel_url + "?page=" + index, { waitUntil: "load" });
         await page.waitForSelector(".hotelQuickView");
@@ -51,6 +53,8 @@ Castle.prototype.getHotels = function(destination) {
 
         console.log("[#] Done getting links\n");
 
+        hotel_url = page.url().match(/.*\/[^?]+/);
+
         // Iterate through hotels of current page
         for (let i = 0; i < hotels_links.length; i++) {
           var hotel = {};
@@ -59,14 +63,16 @@ Castle.prototype.getHotels = function(destination) {
 
           await page.goto(link, { waitUntil: "load" });
 
+          hotel.link = link;
+
           // Get hotel rating
           hotel.rating = await page.evaluate(
             (selector1, selector2) => {
-              if (!document.querySelector(selector1)) return null;
-                return {
-                  value: document.querySelector(selector1).getAttribute("data-reviewrate"),
-                  number: document.querySelector(selector2).innerText
-                };
+              if (!document.querySelector(selector1)||!document.querySelector(selector2)) return null;
+              return {
+                value: document.querySelector(selector1).getAttribute("data-reviewrate"),
+                number: document.querySelector(selector2).innerText
+              };
             },
             "#tabProperty > div > div.row.propertyDesc > div.col-2-3 > div > div.col-1-2.propertyInfo > div.propertyInfo__ratings > div.qualitelis > div.qualitelis-rating > span > div",
             "#tabProperty > div > div.row.propertyDesc > div.col-2-3 > div > div.col-1-2.propertyInfo > div.propertyInfo__ratings > div.qualitelis > div.qualitelis-reviews > div > strong"
@@ -74,7 +80,8 @@ Castle.prototype.getHotels = function(destination) {
 
           // Get hotel price
           hotel.from_price = await page.evaluate(selector => {
-            return document.querySelector(selector).innerText;
+            const price = !document.querySelector(selector) ? null : document.querySelector(selector).innerText;
+            return price;
           }, "body > div.hotelHeader > div.innerHotelHeader > div > div > span.price");
 
           // Get hotel rooms
@@ -89,7 +96,6 @@ Castle.prototype.getHotels = function(destination) {
             return services.map(element => element.innerText);
           }, "#tabProperty > div > div.row.propertyDesc > div.row > div.col-2-3.propertyHotelActivity > div > ul > li");
 
-        
           // Get restaurant link
           const restaurant_link = await page.evaluate(selector => {
             return document.querySelector(selector).href;
@@ -108,16 +114,30 @@ Castle.prototype.getHotels = function(destination) {
             "#restaurant-informations > div.col-1-3 > p[itemprop*='priceRange']"
           );
 
-          console.log(hotel);
-        }
+          hotel.restaurant.link = restaurant_link;
 
-        hotel_url = page.url().match(/.*\/[^?]+/);
+          saveToFirebase(hotel, db, destination);
+        }
       }
+      await page.close();
       await browser.close();
+      console.log("----end----");
+      let now = new Date();
+      db.ref("/update/" + destination).set(now.toISOString());
+      db.goOffline();
     })();
+
   } catch (error) {
     console.log(error);
   }
+};
+
+let saveToFirebase = (hotel, db, destination) => {
+  let hotelsRef = db.ref("/hotels/" + destination);
+  let newHotelRef = hotelsRef.push();
+  let newHotelKey = newHotelRef.key;
+  newHotelRef.set(hotel);
+  console.log("[#] Success => Id: " + newHotelKey + " | Hotel: ", hotel);
 };
 
 exports.Castle = new Castle();
