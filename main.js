@@ -1,7 +1,7 @@
 const request = require("request");
 const castle = require("./castle.js").Castle;
 const firebase = require('firebase');
-const serviceAccount = require("./serviceAccountKey.json");
+const serviceAccount = require("./config/serviceAccountKey.json");
 
 
 if(!firebase.apps.length) {

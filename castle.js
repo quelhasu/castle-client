@@ -4,6 +4,7 @@ var cheerio = require("cheerio");
 const puppeteer = require("puppeteer");
 const date = require("date-and-time");
 const firebase = require("firebase");
+const michelin = require("./michelin").Michelin;
 
 var Castle = function() {};
 
@@ -37,10 +38,10 @@ Castle.prototype.getHotels = function(destination, db) {
       const browser = await puppeteer.launch({ headless: true, timeout: 0 });
       const page = await browser.newPage();
 
-      // Get hotels of the 5th pages
-      for (let index = 1; index < 4; index++) {
+      // Get hotels of the 5th first pages
+      for (let index = 1; index < 2; index++) {
         console.log("[#] Getting links... from " + hotel_url + "?page=" + index);
-        await page.goto(hotel_url + "?page=" + index, { waitUntil: "load" });
+        await page.goto(hotel_url + "?page=" + index, { waitUntil: "load", timeout: 0 });
         await page.waitForSelector(".hotelQuickView");
 
         // Get hotels links only w/ restaurants
@@ -59,7 +60,7 @@ Castle.prototype.getHotels = function(destination, db) {
         for (let i = 0; i < hotels_links.length; i++) {
           var hotel = {};
           let link = hotels_links[i];
-          console.log("\n\t[#] Trying link " + link);
+          console.log("\n\t[#] Trying link " + link.match(/france\/.*/));
 
           await page.goto(link, { waitUntil: "load" });
 
@@ -68,7 +69,7 @@ Castle.prototype.getHotels = function(destination, db) {
           // Get hotel rating
           hotel.rating = await page.evaluate(
             (selector1, selector2) => {
-              if (!document.querySelector(selector1)||!document.querySelector(selector2)) return null;
+              if (!document.querySelector(selector1) || !document.querySelector(selector2)) return null;
               return {
                 value: document.querySelector(selector1).getAttribute("data-reviewrate"),
                 number: document.querySelector(selector2).innerText
@@ -77,6 +78,11 @@ Castle.prototype.getHotels = function(destination, db) {
             "#tabProperty > div > div.row.propertyDesc > div.col-2-3 > div > div.col-1-2.propertyInfo > div.propertyInfo__ratings > div.qualitelis > div.qualitelis-rating > span > div",
             "#tabProperty > div > div.row.propertyDesc > div.col-2-3 > div > div.col-1-2.propertyInfo > div.propertyInfo__ratings > div.qualitelis > div.qualitelis-reviews > div > strong"
           );
+
+          // Get hotel name
+          hotel.name = await page.evaluate(selector => {
+            return document.querySelector(selector).innerText;
+          }, "#tabProperty > div > div.row.hotelTabsHeader > div > div.hotelTabsHeaderTitle > h3");
 
           // Get hotel price
           hotel.from_price = await page.evaluate(selector => {
@@ -115,18 +121,20 @@ Castle.prototype.getHotels = function(destination, db) {
           );
 
           hotel.restaurant.link = restaurant_link;
-
-          saveToFirebase(hotel, db, destination);
+          await michelin.getRestaurantDetails(hotel.restaurant.name, page).then(response => {
+            if (Object.entries(response).length != 0) {
+              hotel.location = response.location;
+              hotel.restaurant.michelin_rating = response.stars;
+              saveToFirebase(hotel, db, destination);
+            }
+          });
         }
       }
       await page.close();
       await browser.close();
       console.log("----end----");
-      let now = new Date();
-      db.ref("/update/" + destination).set(now.toISOString());
       db.goOffline();
     })();
-
   } catch (error) {
     console.log(error);
   }
@@ -134,10 +142,19 @@ Castle.prototype.getHotels = function(destination, db) {
 
 let saveToFirebase = (hotel, db, destination) => {
   let hotelsRef = db.ref("/hotels/" + destination);
-  let newHotelRef = hotelsRef.push();
-  let newHotelKey = newHotelRef.key;
-  newHotelRef.set(hotel);
-  console.log("[#] Success => Id: " + newHotelKey + " | Hotel: ", hotel);
+  hotelsRef
+    .orderByChild("name")
+    .equalTo(hotel.name)
+    .once("value", snap => {
+      if (!snap.exists()) {
+        let newHotelRef = hotelsRef.push();
+        let newHotelKey = newHotelRef.key;
+        newHotelRef.set(hotel);
+        console.log("[#] Success => Id: " + newHotelKey + " | Hotel: ", hotel);
+      } else {
+        console.log("exists!", snap.val());
+      }
+    });
 };
 
 exports.Castle = new Castle();
