@@ -1,58 +1,30 @@
-// Modules
-const express = require("express");
-const bodyParser = require("body-parser");
-const firebase = require("firebase");
-const serviceAccount = require("./config/serviceAccountKey.json");
+const express = require('express')
+const next = require('next')
 
-// Connexion à la base de donnée
-if (!firebase.apps.length) {
-  let config = serviceAccount;
-  firebase.initializeApp(config);
-}
+const dev = process.env.NODE_ENV !== 'production'
+const app = next({ dev })
+const handle = app.getRequestHandler()
 
-const db = firebase.database();
+app.prepare()
+.then(() => {
+  const server = express()
 
+  server.get('/h/:destination/:id', (req, res)=>{
+    const actualPage = '/hotel'
+    const queryParams = { id: req.params.id, destination: req.params.destination }
+    app.render(req, res, actualPage, queryParams)
+  })
 
-// Definition de l'objet express
-const app = express();
+  server.get('*', (req, res) => {
+    return handle(req, res)
+  })
 
-// Body Parser
-var urlencodedParser = bodyParser.urlencoded({
-  extended: true
-});
-app.use(urlencodedParser);
-app.use(bodyParser.json());
-
-// Definition des CORS
-app.use(function(req, res, next) {
-  res.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type");
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
-  res.setHeader("Access-Control-Allow-Credentials", true);
-  next();
-});
-
-// Definition du routeur
-var router = express.Router();
-app.use("/hotel", router);
-require(__dirname + "/controllers/hotelController")(router);
-
-// Definition route Hello
-app.get("/hello", function(req, res) {
-  res.json("Hello World");
-});
-
-app.get("/hotel/:destination", function(req, res){
-  var destination = req.params.destination;
-  var ref = db.ref("/hotels/"+destination);
-
-  ref.on("value", function (snapshot) {
-    res.json(snapshot.val());
-  }, function (errorObject) {
-    console.log("The read failed: " + errorObject.code);
-  });
-});
-
-// Definition et mise en place du port d'écoute
-var port = 8000;
-app.listen(port, () => console.log(`Listening on port ${port}`));
+  server.listen(3000, (err) => {
+    if (err) throw err
+    console.log('> Ready on http://localhost:3000')
+  })
+})
+.catch((ex) => {
+  console.error(ex.stack)
+  process.exit(1)
+})
