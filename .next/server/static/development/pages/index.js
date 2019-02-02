@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -113,7 +113,10 @@ var linkStyle = {
 };
 
 var Header = function Header() {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("link", {
+    rel: "stylesheet",
+    href: "https://fonts.googleapis.com/icon?family=Material+Icons"
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
     href: "/"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     style: linkStyle
@@ -144,8 +147,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var layoutStyle = {
   margin: 20,
-  padding: 20,
-  border: '1px solid #DDD'
+  padding: 20 // border: '1px solid #DDD'
+
 };
 
 var Layout = function Layout(props) {
@@ -192,12 +195,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _config_config__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../config/config */ "./config/config.js");
 /* harmony import */ var _config_config__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_config_config__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var material_table__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! material-table */ "material-table");
+/* harmony import */ var material_table__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(material_table__WEBPACK_IMPORTED_MODULE_6__);
 
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 
 
@@ -213,14 +219,112 @@ var PostLink = function PostLink(props) {
 };
 
 var Index = function Index(props) {
-  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_Layout_js__WEBPACK_IMPORTED_MODULE_2__["default"], null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h1", null, "Hotels"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", null, props.hotels.map(function (hotel) {
-    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", {
-      key: hotel.id
-    }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_3___default.a, {
-      as: "/h/france/".concat(hotel.id),
-      href: "/h/france/".concat(hotel.id)
-    }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", null, hotel.name)));
-  })));
+  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_Layout_js__WEBPACK_IMPORTED_MODULE_2__["default"], null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h1", null, "Hotels"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(material_table__WEBPACK_IMPORTED_MODULE_6___default.a, {
+    columns: [{
+      title: "Hotel name",
+      field: "hotel_name"
+    }, {
+      title: "Restaurant name",
+      field: "restaurant_name"
+    }, {
+      title: "Location",
+      field: "location"
+    }, {
+      title: "Price",
+      field: "price",
+      type: "numeric"
+    }, {
+      title: "Michelin rating",
+      field: "michelin_rating",
+      render: function render(rowData) {
+        var rate = rowData.michelin_rating;
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          style: {
+            height: "25px"
+          }
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
+          src: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Etoile_Michelin-1.svg/938px-Etoile_Michelin-1.svg.png",
+          style: {
+            maxWidth: "100%",
+            maxHeight: "100%",
+            margin: "0 5px",
+            objectFit: "contain",
+            display: rate >= 1 ? "inline" : "none"
+          }
+        }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
+          src: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Etoile_Michelin-1.svg/938px-Etoile_Michelin-1.svg.png",
+          style: {
+            maxWidth: "100%",
+            maxHeight: "100%",
+            margin: "0 5px",
+            objectFit: "contain",
+            display: rate > 1 ? "inline" : "none"
+          }
+        }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
+          src: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Etoile_Michelin-1.svg/938px-Etoile_Michelin-1.svg.png",
+          style: {
+            maxWidth: "100%",
+            maxHeight: "100%",
+            margin: "0 5px",
+            objectFit: "contain",
+            display: rate > 2 ? "inline" : "none"
+          }
+        }));
+      } // {
+      //   title: "Doğum Yeri",
+      //   field: "birthCity",
+      //   lookup: { 34: "İstanbul", 63: "Şanlıurfa" }
+      // }
+
+    }],
+    data: props.hotels.map(function (el) {
+      return {
+        hotel_name: el.name,
+        restaurant_name: el.restaurant.name,
+        location: el.location.postal,
+        michelin_rating: el.restaurant.michelin_rating,
+        price: el.from_price,
+        hotel_url: el.link,
+        restaurant_url: el.restaurant.link
+      };
+    }),
+    title: "Hotels & Restaurants",
+    actions: [function (rowData) {
+      return {
+        icon: "hotel",
+        tooltip: "Go hotel webpage",
+        disabled: rowData.hotel_url == null,
+        onClick: function onClick(event, rowData) {
+          window.open(rowData.hotel_url, "_blank");
+        }
+      };
+    }, function (rowData) {
+      return {
+        icon: "restaurant",
+        tooltip: "Go restaurant webpage",
+        disabled: rowData.restaurant_url == null,
+        onClick: function onClick(event, rowData) {
+          window.open(rowData.restaurant_url, "_blank");
+        }
+      };
+    }, {
+      icon: "navigate_next",
+      tooltip: "Show details",
+      onClick: function onClick(event, rowData) {
+        alert("You clicked user " + rowData.name);
+      },
+      iconProps: {
+        style: {
+          fontSize: 30 // color: 'green',
+
+        }
+      }
+    }],
+    options: {
+      pageSize: 10,
+      actionsColumnIndex: -1
+    }
+  }));
 };
 
 Index.getInitialProps =
@@ -268,7 +372,7 @@ _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function 
 
 /***/ }),
 
-/***/ 4:
+/***/ 3:
 /*!******************************!*\
   !*** multi ./pages/index.js ***!
   \******************************/
@@ -299,6 +403,17 @@ module.exports = require("@babel/runtime/regenerator");
 /***/ (function(module, exports) {
 
 module.exports = require("isomorphic-unfetch");
+
+/***/ }),
+
+/***/ "material-table":
+/*!*********************************!*\
+  !*** external "material-table" ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("material-table");
 
 /***/ }),
 

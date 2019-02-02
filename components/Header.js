@@ -6,6 +6,7 @@ const linkStyle = {
 
 const Header = () => (
   <div>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
     <Link href='/'>
       <a style={linkStyle}>Home</a>
     </Link>

@@ -1,45 +1,139 @@
-import Layout from '../components/Layout.js'
-import Link from 'next/link'
-import fetch from 'isomorphic-unfetch'
-import config from '../config/config'
+import Layout from "../components/Layout.js";
+import Link from "next/link";
+import fetch from "isomorphic-unfetch";
+import config from "../config/config";
+
+import MaterialTable from "material-table";
 
 console.log(config.api_url);
 
-const PostLink = (props) => (
+const PostLink = props => (
   <li>
     <Link as={`/p${props.id}`} href={`/post?title=${props.title}`}>
       <a>{props.title}</a>
     </Link>
   </li>
-)
+);
 
-const Index = (props) => (
+const Index = props => (
   <Layout>
     <h1>Hotels</h1>
-    <ul>
-      {props.hotels.map((hotel) => (
-        <li key={hotel.id}>
-          <Link as={`/h/france/${hotel.id}`} href={`/h/france/${hotel.id}`}>
-            <a>{hotel.name}</a>
-          </Link>
-        </li>
-      ))}
-    </ul>
+    <MaterialTable
+      columns={[
+        { title: "Hotel name", field: "hotel_name" },
+        { title: "Restaurant name", field: "restaurant_name" },
+        { title: "Location", field: "location" },
+        { title: "Price", field: "price", type: "numeric" },
+        {
+          title: "Michelin rating",
+          field: "michelin_rating",
+          render: rowData => {
+            const rate = rowData.michelin_rating;
+            return (
+              <div style={{ height: "25px" }}>
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Etoile_Michelin-1.svg/938px-Etoile_Michelin-1.svg.png"
+                  style={{
+                    maxWidth: "100%",
+                    maxHeight: "100%",
+                    margin: "0 5px",
+                    objectFit: "contain",
+                    display: rate >= 1 ? "inline" : "none"
+                  }}
+                />
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Etoile_Michelin-1.svg/938px-Etoile_Michelin-1.svg.png"
+                  style={{
+                    maxWidth: "100%",
+                    maxHeight: "100%",
+                    margin: "0 5px",
+                    objectFit: "contain",
+                    display: rate > 1 ? "inline" : "none"
+                  }}
+                />
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Etoile_Michelin-1.svg/938px-Etoile_Michelin-1.svg.png"
+                  style={{
+                    maxWidth: "100%",
+                    maxHeight: "100%",
+                    margin: "0 5px",
+                    objectFit: "contain",
+                    display: rate > 2 ? "inline" : "none"
+                  }}
+                />
+              </div>
+            );
+          }
+        }
+        // {
+        //   title: "Doğum Yeri",
+        //   field: "birthCity",
+        //   lookup: { 34: "İstanbul", 63: "Şanlıurfa" }
+        // }
+      ]}
+      data={props.hotels.map(el => {
+        return {
+          hotel_name: el.name,
+          restaurant_name: el.restaurant.name,
+          location: el.location.postal,
+          michelin_rating: el.restaurant.michelin_rating,
+          price: el.from_price,
+          hotel_url: el.link,
+          restaurant_url: el.restaurant.link
+        };
+      })}
+      title="Hotels & Restaurants"
+      actions={[
+        rowData => ({
+          icon: "hotel",
+          tooltip: "Go hotel webpage",
+          disabled: rowData.hotel_url == null,
+          onClick: (event, rowData) => {
+            window.open(rowData.hotel_url, "_blank");
+          }
+        }),
+        rowData => ({
+          icon: "restaurant",
+          tooltip: "Go restaurant webpage",
+          disabled: rowData.restaurant_url == null,
+          onClick: (event, rowData) => {
+            window.open(rowData.restaurant_url, "_blank");
+          }
+        }),
+        {
+          icon: "navigate_next",
+          tooltip: "Show details",
+          onClick: (event, rowData) => {
+            alert("You clicked user " + rowData.name);
+          },
+          iconProps: {
+            style: {
+              fontSize: 30
+              // color: 'green',
+            }
+          }
+        }
+      ]}
+      options={{
+        pageSize: 10,
+        actionsColumnIndex: -1
+      }}
+    />
   </Layout>
-)
+);
 
 Index.getInitialProps = async function() {
-  const res = await fetch(`${config.api_url}/hotel/france`)
-  const data = await res.json()
+  const res = await fetch(`${config.api_url}/hotel/france`);
+  const data = await res.json();
 
-  console.log(`Show data fetched. Count: ${data.length}`)
+  console.log(`Show data fetched. Count: ${data.length}`);
 
   return {
     hotels: data
-  }
-}
+  };
+};
 
-export default Index
+export default Index;
 
 // export default () => (
 //   <Layout>
