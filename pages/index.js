@@ -43,7 +43,13 @@ const Index = props => (
         }},
         { title: "Restaurant name", field: "restaurant_name" },
         { title: "Location", field: "location" },
-        { title: "Price", field: "price", type: "numeric" },
+        { title: "Price", field: "price", type: "numeric",
+          cellStyle: data =>{
+            var priceArray = props.hotels.filter(el => {return !el.from_price ? false : true }).map(el => {return Number(el.from_price)})
+            if(data == Math.min(...priceArray)) return {color: 'YellowGreen', fontWeight: 'bolder'}
+            if (data == Math.max(...priceArray)) return {color: 'red', fontWeight: 'bolder'}
+          }
+        },
         {
           title: "Michelin rating",
           field: "michelin_rating",
