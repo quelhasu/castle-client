@@ -20,9 +20,14 @@ const PostLink = props => (
 
 const Index = props => (
   <Layout>
+    <style jsx>{`
+      .MuiTableCell-body-138 {
+        font-size:1rem !important;
+      }
+    `}</style>
     <MaterialTable
       columns={[
-        { title: "Preview", field: "hotel_media", render : rowData => {
+        { title: "Preview", field: "hotel_media",cellStyle: {fontSize: "1rem"}, render : rowData => {
           //FIXME: change image by hotel image
           const media = "https://picsum.photos/200/100"
           return (
@@ -31,7 +36,7 @@ const Index = props => (
             </div>
           )
         }},
-        { title: "Hotel name", field: "hotel_name",  render : rowData => {
+        { title: "Hotel name", field: "hotel_name",cellStyle: {fontSize: "1rem"},  render : rowData => {
           const name = rowData.hotel_name
           return(
             <div>
@@ -41,13 +46,14 @@ const Index = props => (
           </div>
           )
         }},
-        { title: "Restaurant name", field: "restaurant_name" },
-        { title: "Location", field: "location" },
-        { title: "Price", field: "price", type: "numeric",
+        { title: "Restaurant name", field: "restaurant_name", cellStyle: {fontSize: "1rem"} },
+        { title: "Location", field: "location", cellStyle: {fontSize: "1rem"} },
+        { title: "Price", field: "price", type: "currency", currencySetting: {locale: 'fr-FR', currencyCode: 'EUR', minimumFractionDigits: 2,maximumFractionDigits: 3},
           cellStyle: data =>{
             var priceArray = props.hotels.filter(el => {return !el.from_price ? false : true }).map(el => {return Number(el.from_price)})
-            if(data == Math.min(...priceArray)) return {color: 'YellowGreen', fontWeight: 'bolder'}
-            if (data == Math.max(...priceArray)) return {color: 'red', fontWeight: 'bolder'}
+            if(data == Math.min(...priceArray)) return {color: 'YellowGreen', fontWeight: 'bolder', fontSize: "1rem"}
+            if (data == Math.max(...priceArray)) return {color: 'red', fontWeight: 'bolder', fontSize: "1rem"}
+            return {fontSize: "1rem"}
           }
         },
         {
@@ -143,7 +149,9 @@ const Index = props => (
       ]}
       options={{
         pageSize: 15,
-        actionsColumnIndex: -1
+        actionsColumnIndex: -1,
+        loadingType: "linear",
+        emptyRowsWhenPaging: false,
       }}
     />
   </Layout>
