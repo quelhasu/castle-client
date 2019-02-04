@@ -3,15 +3,21 @@ import Header from './Header'
 const layoutStyle = {
   // margin: 20,
   // border: '1px solid #DDD'
+  // fontFamily: "'Montserrat', sans-serif !important"  
 }
 
 const bodyStyle = {
   padding: 20,
-  paddingTop: 70
+  paddingTop: 70,
 }
 
 const Layout = (props) => (
-  <div style={layoutStyle}>
+  <div>
+     <style jsx global>{`
+      html, body, * { 
+        font-family: 'Montserrat', sans-serif;
+      }
+    `}</style>
     <Header/>
     <div style={bodyStyle}>
     {props.children}

@@ -38,6 +38,7 @@ const navbarStyle = {
 const Header = () => (
   <div style={headerStyle}>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"/>
     <Navbar style={navbarStyle} fixed="top" color="light" light expand="md">
       <NavbarBrand href="/">
       <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/facebook/105/european-castle_1f3f0.png" style={navbarLogoStyle}/>

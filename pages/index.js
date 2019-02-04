@@ -136,7 +136,7 @@ const Index = props => (
         // }
       ]}
       options={{
-        pageSize: 10,
+        pageSize: 15,
         actionsColumnIndex: -1
       }}
     />
