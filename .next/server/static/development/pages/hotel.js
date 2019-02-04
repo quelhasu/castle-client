@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -215,220 +215,155 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./pages/index.js":
+/***/ "./pages/hotel.js":
 /*!************************!*\
-  !*** ./pages/index.js ***!
+  !*** ./pages/hotel.js ***!
   \************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Hotel; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "@babel/runtime/regenerator");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_Layout_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Layout.js */ "./components/Layout.js");
-/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! next/link */ "next/link");
-/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! next/router */ "next/router");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_Layout_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Layout.js */ "./components/Layout.js");
 /* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! isomorphic-unfetch */ "isomorphic-unfetch");
 /* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _config_config__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../config/config */ "./config/config.js");
 /* harmony import */ var _config_config__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_config_config__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! bootstrap/dist/css/bootstrap.min.css */ "./node_modules/bootstrap/dist/css/bootstrap.min.css");
-/* harmony import */ var bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var material_table__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! material-table */ "material-table");
-/* harmony import */ var material_table__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(material_table__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var next_error__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! next/error */ "next/error");
+/* harmony import */ var next_error__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(next_error__WEBPACK_IMPORTED_MODULE_6__);
 
 
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
 
 
 
 
-console.log(_config_config__WEBPACK_IMPORTED_MODULE_5___default.a.api_url);
 
-var PostLink = function PostLink(props) {
-  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_3___default.a, {
-    as: "/p".concat(props.id),
-    href: "/post?title=".concat(props.title)
-  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", null, props.title)));
-};
-
-var Index = function Index(props) {
-  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_Layout_js__WEBPACK_IMPORTED_MODULE_2__["default"], null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(material_table__WEBPACK_IMPORTED_MODULE_7___default.a, {
-    columns: [{
-      title: "Preview",
-      field: "hotel_media",
-      render: function render(rowData) {
-        //FIXME: change image by hotel image
-        var media = "https://picsum.photos/200/100";
-        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
-          src: media
-        }));
-      }
-    }, {
-      title: "Hotel name",
-      field: "hotel_name",
-      render: function render(rowData) {
-        var name = rowData.hotel_name;
-        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_3___default.a, {
-          as: "/h/france/".concat(rowData.id),
-          href: "/h/france/".concat(rowData.id)
-        }, name));
-      }
-    }, {
-      title: "Restaurant name",
-      field: "restaurant_name"
-    }, {
-      title: "Location",
-      field: "location"
-    }, {
-      title: "Price",
-      field: "price",
-      type: "numeric"
-    }, {
-      title: "Michelin rating",
-      field: "michelin_rating",
-      render: function render(rowData) {
-        var rate = rowData.michelin_rating;
-        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-          style: {
-            height: "25px"
-          }
-        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
-          src: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Etoile_Michelin-1.svg/938px-Etoile_Michelin-1.svg.png",
-          style: {
-            maxWidth: "100%",
-            maxHeight: "100%",
-            margin: "0 5px",
-            objectFit: "contain",
-            display: rate >= 1 ? "inline" : "none"
-          }
-        }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
-          src: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Etoile_Michelin-1.svg/938px-Etoile_Michelin-1.svg.png",
-          style: {
-            maxWidth: "100%",
-            maxHeight: "100%",
-            margin: "0 5px",
-            objectFit: "contain",
-            display: rate > 1 ? "inline" : "none"
-          }
-        }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
-          src: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Etoile_Michelin-1.svg/938px-Etoile_Michelin-1.svg.png",
-          style: {
-            maxWidth: "100%",
-            maxHeight: "100%",
-            margin: "0 5px",
-            objectFit: "contain",
-            display: rate > 2 ? "inline" : "none"
-          }
-        }));
-      } // {
-      //   title: "Doğum Yeri",
-      //   field: "birthCity",
-      //   lookup: { 34: "İstanbul", 63: "Şanlıurfa" }
-      // }
-
-    }],
-    data: props.hotels.map(function (el) {
-      return {
-        hotel_name: el.name,
-        restaurant_name: el.restaurant.name,
-        location: el.location.postal,
-        michelin_rating: el.restaurant.michelin_rating,
-        price: el.from_price,
-        hotel_url: el.link,
-        restaurant_url: el.restaurant.michelin_url,
-        id: el.id
-      };
-    }),
-    title: "Hotels & Restaurants",
-    actions: [function (rowData) {
-      return {
-        icon: "hotel",
-        tooltip: "Go hotel webpage",
-        disabled: rowData.hotel_url == null,
-        onClick: function onClick(event, rowData) {
-          window.open(rowData.hotel_url, "_blank");
-        }
-      };
-    }, function (rowData) {
-      return {
-        icon: "restaurant",
-        tooltip: "Go restaurant webpage",
-        disabled: rowData.restaurant_url == null,
-        onClick: function onClick(event, rowData) {
-          window.open(rowData.restaurant_url, "_blank");
-        }
-      };
-    }],
-    options: {
-      pageSize: 10,
-      actionsColumnIndex: -1
-    }
-  }));
-};
-
-Index.getInitialProps =
+var Hotel =
 /*#__PURE__*/
-_asyncToGenerator(
-/*#__PURE__*/
-_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-  var res, data;
-  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          _context.next = 2;
-          return isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_4___default()("".concat(_config_config__WEBPACK_IMPORTED_MODULE_5___default.a.api_url, "/hotel/france"));
+function (_React$Component) {
+  _inherits(Hotel, _React$Component);
 
-        case 2:
-          res = _context.sent;
-          _context.next = 5;
-          return res.json();
+  function Hotel() {
+    _classCallCheck(this, Hotel);
 
-        case 5:
-          data = _context.sent;
-          console.log("Show data fetched. Count: ".concat(data.length));
-          return _context.abrupt("return", {
-            hotels: data
-          });
+    return _possibleConstructorReturn(this, _getPrototypeOf(Hotel).apply(this, arguments));
+  }
 
-        case 8:
-        case "end":
-          return _context.stop();
+  _createClass(Hotel, [{
+    key: "render",
+    value: function render() {
+      if (this.props.statusCode) {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(next_error__WEBPACK_IMPORTED_MODULE_6___default.a, {
+          statusCode: this.props.statusCode
+        });
       }
+
+      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_Layout_js__WEBPACK_IMPORTED_MODULE_3__["default"], null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h1", null, this.props.hotel.name), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, this.props.hotel.from_price), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
+        href: this.props.hotel.link
+      }, "URL"));
     }
-  }, _callee, this);
-}));
-/* harmony default export */ __webpack_exports__["default"] = (Index); // export default () => (
-//   <Layout>
-//     <h1>Castle</h1>
-//     <ul>
-//       <PostLink id="hello-nextjs" title="Hello Next.js"/>
-//       <PostLink id="learn-nextjs" title="Learn Next.js is awesome"/>
-//       <PostLink id="deploy-nextjs" title="Deploy apps with Zeit"/>
-//     </ul>
-//   </Layout>
-// )
+  }], [{
+    key: "getInitialProps",
+    value: function () {
+      var _getInitialProps = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(context) {
+        var _context$query, id, destination, res, statusCode, hotel;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context$query = context.query, id = _context$query.id, destination = _context$query.destination;
+                _context.next = 3;
+                return isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_4___default()("".concat(_config_config__WEBPACK_IMPORTED_MODULE_5___default.a.api_url, "/hotel/").concat(destination, "/").concat(id));
+
+              case 3:
+                res = _context.sent;
+                statusCode = res.status > 200 ? res.status : false;
+
+                if (!statusCode) {
+                  _context.next = 7;
+                  break;
+                }
+
+                return _context.abrupt("return", {
+                  statusCode: statusCode
+                });
+
+              case 7:
+                _context.next = 9;
+                return res.json();
+
+              case 9:
+                hotel = _context.sent;
+                console.log("Show data fetched. Count: ".concat(hotel.name));
+                return _context.abrupt("return", {
+                  hotel: hotel
+                });
+
+              case 12:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function getInitialProps(_x) {
+        return _getInitialProps.apply(this, arguments);
+      }
+
+      return getInitialProps;
+    }()
+  }]);
+
+  return Hotel;
+}(react__WEBPACK_IMPORTED_MODULE_1___default.a.Component);
+
+
 
 /***/ }),
 
-/***/ 3:
+/***/ 4:
 /*!******************************!*\
-  !*** multi ./pages/index.js ***!
+  !*** multi ./pages/hotel.js ***!
   \******************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./pages/index.js */"./pages/index.js");
+module.exports = __webpack_require__(/*! ./pages/hotel.js */"./pages/hotel.js");
 
 
 /***/ }),
@@ -455,14 +390,14 @@ module.exports = require("isomorphic-unfetch");
 
 /***/ }),
 
-/***/ "material-table":
-/*!*********************************!*\
-  !*** external "material-table" ***!
-  \*********************************/
+/***/ "next/error":
+/*!*****************************!*\
+  !*** external "next/error" ***!
+  \*****************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("material-table");
+module.exports = require("next/error");
 
 /***/ }),
 
@@ -474,6 +409,17 @@ module.exports = require("material-table");
 /***/ (function(module, exports) {
 
 module.exports = require("next/link");
+
+/***/ }),
+
+/***/ "next/router":
+/*!******************************!*\
+  !*** external "next/router" ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("next/router");
 
 /***/ }),
 
@@ -500,4 +446,4 @@ module.exports = require("reactstrap");
 /***/ })
 
 /******/ });
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=hotel.js.map

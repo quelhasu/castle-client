@@ -2,6 +2,8 @@ import Layout from "../components/Layout.js";
 import Link from "next/link";
 import fetch from "isomorphic-unfetch";
 import config from "../config/config";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 import MaterialTable from "material-table";
 
@@ -15,12 +17,30 @@ const PostLink = props => (
   </li>
 );
 
+
 const Index = props => (
   <Layout>
-    <h1>Hotels</h1>
     <MaterialTable
       columns={[
-        { title: "Hotel name", field: "hotel_name" },
+        { title: "Preview", field: "hotel_media", render : rowData => {
+          //FIXME: change image by hotel image
+          const media = "https://picsum.photos/200/100"
+          return (
+            <div>
+              <img src={media}/>
+            </div>
+          )
+        }},
+        { title: "Hotel name", field: "hotel_name",  render : rowData => {
+          const name = rowData.hotel_name
+          return(
+            <div>
+            <Link as={`/h/france/${rowData.id}`} href={`/h/france/${rowData.id}`}>
+              {name}
+            </Link>
+          </div>
+          )
+        }},
         { title: "Restaurant name", field: "restaurant_name" },
         { title: "Location", field: "location" },
         { title: "Price", field: "price", type: "numeric" },
@@ -79,7 +99,8 @@ const Index = props => (
           michelin_rating: el.restaurant.michelin_rating,
           price: el.from_price,
           hotel_url: el.link,
-          restaurant_url: el.restaurant.link
+          restaurant_url: el.restaurant.michelin_url,
+          id: el.id
         };
       })}
       title="Hotels & Restaurants"
@@ -100,19 +121,19 @@ const Index = props => (
             window.open(rowData.restaurant_url, "_blank");
           }
         }),
-        {
-          icon: "navigate_next",
-          tooltip: "Show details",
-          onClick: (event, rowData) => {
-            alert("You clicked user " + rowData.name);
-          },
-          iconProps: {
-            style: {
-              fontSize: 30
-              // color: 'green',
-            }
-          }
-        }
+        // {
+        //   icon: "navigate_next",
+        //   tooltip: "Show details",
+        //   onClick: (event, rowData) => {
+        //     alert("You clicked user " + rowData.name);
+        //   },
+        //   iconProps: {
+        //     style: {
+        //       fontSize: 30
+        //       // color: 'green',
+        //     }
+        //   }
+        // }
       ]}
       options={{
         pageSize: 10,

@@ -1,6 +1,8 @@
 .PHONY: slides
 .SILENT: build
 
+dev:
+
 alias: ## alias to esilv-castle.now.sh
 	now alias $(filter-out $@,$(MAKECMDGOALS)) esilv-castle
 
