@@ -22,11 +22,27 @@ const headerStyle = {
   marginBottom: 30
 };
 
+const navbarLogoStyle = {
+  height: 35,
+  marginRight: 10,
+  marginTop: -10
+}
+
+const navbarStyle = {
+  borderBottom: "0.5px solid #d1d1d1",
+  backgroundColor: "#FFF!important",
+  padding: "0.5rem 2rem",
+  boxShadow: "0px 1px 5px 0px rgba(0,0,0,0.2)"
+}
+
 const Header = () => (
   <div style={headerStyle}>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-    <Navbar color="light" light expand="md">
-      <NavbarBrand href="/">Castle</NavbarBrand>
+    <Navbar style={navbarStyle} fixed="top" color="light" light expand="md">
+      <NavbarBrand href="/">
+      <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/facebook/105/european-castle_1f3f0.png" style={navbarLogoStyle}/>
+        Castle    
+      </NavbarBrand>
         <Nav className="ml-auto" navbar>
           <NavItem>
             <NavLink href="/components/">Components</NavLink>

@@ -120,6 +120,17 @@ var linkStyle = {
 var headerStyle = {
   marginBottom: 30
 };
+var navbarLogoStyle = {
+  height: 35,
+  marginRight: 10,
+  marginTop: -10
+};
+var navbarStyle = {
+  borderBottom: "0.5px solid #d1d1d1",
+  backgroundColor: "#FFF!important",
+  padding: "0.5rem 2rem",
+  boxShadow: "0px 1px 5px 0px rgba(0,0,0,0.2)"
+};
 
 var Header = function Header() {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -128,12 +139,17 @@ var Header = function Header() {
     rel: "stylesheet",
     href: "https://fonts.googleapis.com/icon?family=Material+Icons"
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_3__["Navbar"], {
+    style: navbarStyle,
+    fixed: "top",
     color: "light",
     light: true,
     expand: "md"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_3__["NavbarBrand"], {
     href: "/"
-  }, "Castle"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_3__["Nav"], {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    src: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/facebook/105/european-castle_1f3f0.png",
+    style: navbarLogoStyle
+  }), "Castle"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_3__["Nav"], {
     className: "ml-auto",
     navbar: true
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_3__["NavItem"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_3__["NavLink"], {
@@ -175,7 +191,8 @@ var layoutStyle = {// margin: 20,
   // border: '1px solid #DDD'
 };
 var bodyStyle = {
-  padding: 20
+  padding: 20,
+  paddingTop: 70
 };
 
 var Layout = function Layout(props) {

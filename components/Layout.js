@@ -6,7 +6,8 @@ const layoutStyle = {
 }
 
 const bodyStyle = {
-  padding: 20
+  padding: 20,
+  paddingTop: 70
 }
 
 const Layout = (props) => (
