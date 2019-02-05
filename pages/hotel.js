@@ -1,5 +1,6 @@
 import { withRouter } from "next/router";
 import Layout from "../components/Layout.js";
+import HotelLayout from "../components/HotelLayout.js";
 import fetch from "isomorphic-unfetch";
 import config from "../config/config";
 import Error from 'next/error'
@@ -22,9 +23,7 @@ export default class Hotel extends React.Component {
 
     return (
       <Layout>
-        <h1>{this.props.hotel.name}</h1>
-        <p>{this.props.hotel.from_price}</p>
-        <a href={this.props.hotel.link}>URL</a>
+        <HotelLayout hotel={this.props.hotel}/>
       </Layout>
     );
   }
