@@ -7,6 +7,9 @@ dev:
 	cd ../castle-api && pwd && node server.js &
 	npm run dev &
 
+stop: 
+	killall node
+
 alias: ## alias to esilv-castle.now.sh
 	now alias $(filter-out $@,$(MAKECMDGOALS)) esilv-castle
 
