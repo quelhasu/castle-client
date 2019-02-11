@@ -38,6 +38,7 @@ const navbarStyle = {
 const Header = () => (
   <div style={headerStyle}>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  <link rel='stylesheet' type='text/css' href='/static/nprogress.css' />
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"/>
     <Navbar style={navbarStyle} fixed="top" color="light" light expand="md">
       <NavbarBrand href="/">
