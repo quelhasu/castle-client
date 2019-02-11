@@ -17,6 +17,10 @@ const Layout = (props) => (
       html, body, * { 
         font-family: 'Montserrat', sans-serif;
       }
+      img {
+        max-height: 200px;
+        max-width: 300px;
+      }
     `}</style>
     <Header/>
     <div style={bodyStyle}>

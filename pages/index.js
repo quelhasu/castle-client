@@ -29,7 +29,7 @@ const Index = props => (
       columns={[
         { title: "Preview", field: "hotel_media",cellStyle: {fontSize: "1rem"}, render : rowData => {
           //FIXME: change image by hotel image
-          const media = "https://picsum.photos/200/100"
+          const media = rowData.media ? rowData.media : "https://picsum.photos/200/100"
           return (
             <div>
               <img src={media}/>
@@ -112,7 +112,8 @@ const Index = props => (
           price: el.from_price,
           hotel_url: el.link,
           restaurant_url: el.restaurant.michelin_url,
-          id: el.id
+          id: el.id,
+          media: el.media
         };
       })}
       title="Hotels & Restaurants"
