@@ -1,7 +1,11 @@
 .PHONY: slides
 .SILENT: build
+FILES = $(shell ls)
 
+.ONESHELL:
 dev:
+	cd ../castle-api && pwd && node server.js &
+	npm run dev &
 
 alias: ## alias to esilv-castle.now.sh
 	now alias $(filter-out $@,$(MAKECMDGOALS)) esilv-castle
