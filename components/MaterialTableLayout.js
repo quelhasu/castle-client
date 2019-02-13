@@ -13,22 +13,23 @@ export default class MaterialTableLayout extends React.Component {
     super(props);
     this.state = {
       position: "none",
-      currently: "loading"
+      currently: "loading",
+      className: "hotels-table-loading"
     };
   }
 
   componentDidUpdate(){
     NProgress.done();
+    
   }
 
   // Depends on browser
   componentDidMount() {
-    
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         position => {
           // console.log(position);
-          this.setState({ position: position, currently: "success" });
+          this.setState({ position: position, currently: "success", className: 'hotels-table-finish' });
         },
         error => {
           // console.log(error);
@@ -41,9 +42,18 @@ export default class MaterialTableLayout extends React.Component {
   }
 
   render() {
-    let { position, currently } = this.state;
+    let { position, currently, className } = this.state;
     return (
-      <div>
+      <div className={className}>
+      <style jsx>{`
+        .hotels-table-loading {
+          opacity:0.2;
+        }
+
+        .hotels-table-finish {
+          opacity:1;
+        }
+     `}</style>
         <MaterialTable
           columns={[
             {
