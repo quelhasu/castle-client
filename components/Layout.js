@@ -16,8 +16,8 @@ const Layout = props => (
         font-family: "Montserrat", sans-serif;
       }
       img {
-        max-height: 200px;
-        max-width: 300px;
+        max-height: 150px;
+        max-width: 200px;
       }
       .leaflet-container {
         position: absolute;

@@ -50,6 +50,7 @@ Index.getInitialProps = async function() {
   };
 };
 
+
 export default Index;
 
 // export default () => (
