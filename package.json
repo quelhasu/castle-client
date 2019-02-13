@@ -24,15 +24,19 @@
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
     "bootstrap": "^4.2.1",
+    "cross-env": "^5.0.1",
     "express": "^4.16.4",
     "isomorphic-unfetch": "^3.0.0",
+    "leaflet": "^1.4.0",
     "material-table": "^1.17.0",
     "next": "^7.0.2",
     "nprogress": "^0.2.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
+    "react-geocode": "^0.1.2",
+    "react-leaflet": "^2.2.0",
+    "react-leaflet-universal": "^1.2.0",
     "reactstrap": "^7.1.0",
-    "seedrandom": "^2.4.4",
-    "cross-env": "^5.0.1"
+    "seedrandom": "^2.4.4"
   }
 }

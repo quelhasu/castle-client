@@ -4,7 +4,7 @@ FILES = $(shell ls)
 
 .ONESHELL:
 dev:
-	cd ../castle-api && pwd && node server.js &
+	cd ../castle-api && pwd && node server.js & \
 	npm run dev &
 
 stop: 
