@@ -40,7 +40,6 @@ export default class Index extends React.Component {
   }
 
   componentDidMount = () => {
-    console.log("OKKKK");
     this.setState({ currently: "success" });
     NProgress.start();
     NProgress.configure({ easing: 'ease', speed: 500 });

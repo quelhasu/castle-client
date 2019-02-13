@@ -1,7 +1,12 @@
 import MaterialTable from "material-table";
 import Link from "next/link";
 import geolib from "geolib";
-import NProgress from 'nprogress'
+import NProgress from 'nprogress';
+import {LazyLoadImage}  from 'react-lazy-load-image-component';
+import React from 'react';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
+
 
 export default class MaterialTableLayout extends React.Component {
   constructor(props) {
@@ -12,12 +17,7 @@ export default class MaterialTableLayout extends React.Component {
     };
   }
 
-  componentWillMount(){
-    console.log("coucou");
-  }
-
   componentDidUpdate(){
-    console.log("fini ");
     NProgress.done();
   }
 
@@ -54,7 +54,11 @@ export default class MaterialTableLayout extends React.Component {
                 const media = rowData.media ? rowData.media : "https://picsum.photos/200/100";
                 return (
                   <div>
-                    <img src={media} />
+                    <LazyLoadImage
+                      src={media} 
+                      effect="blur"
+                      placeholderSrc="https://www.easysapers.com/assets/images/loading.gif"
+                      />
                   </div>
                 );
               }
