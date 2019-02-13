@@ -19,39 +19,52 @@ Router.events.on('routeChangeError', () => NProgress.done())
 
 console.log(config.api_url);
 
-const PostLink = props => (
-  <li>
-    <Link as={`/p${props.id}`} href={`/post?title=${props.title}`}>
-      <a>{props.title}</a>
-    </Link>
-  </li>
-);
+export default class Index extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      currently: "loading"
+    };
+  }
 
-const Index = props => (
-  <Layout>
+  static async getInitialProps() {
+    const res = await fetch(`${config.api_url}/hotel/france`);
+    const data = await res.json();
+  
+    console.log(`Show data fetched. Count: ${data.length}`);
+  
+    return {
+      hotels: data
+    };
+  }
+
+  componentDidMount = () => {
+    console.log("OKKKK");
+    this.setState({ currently: "success" });
+    NProgress.start();
+    NProgress.configure({ easing: 'ease', speed: 500 });
+  }
+
+  render() {
+    let { currently } = this.state;
+    return (
+      <Layout>
     <style jsx>{`
       .MuiTableCell-body-138 {
         font-size:1rem !important;
       }
     `}</style>
-    <MaterialTableLayout hotels={props.hotels}/>
+    {currently === "loading" ? '' : (
+      <MaterialTableLayout hotels={this.props.hotels}/>
+    )}
+    
   </Layout>
-);
+    )
+  }
+}
 
-Index.getInitialProps = async function() {
-  const res = await fetch(`${config.api_url}/hotel/france`);
-  const data = await res.json();
-
-  console.log(`Show data fetched. Count: ${data.length}`);
-
-  return {
-    hotels: data
-  };
-};
-
-
-export default Index;
+// export default Index;
 
 // export default () => (
 //   <Layout>

@@ -1,6 +1,7 @@
 import MaterialTable from "material-table";
 import Link from "next/link";
 import geolib from "geolib";
+import NProgress from 'nprogress'
 
 export default class MaterialTableLayout extends React.Component {
   constructor(props) {
@@ -11,16 +12,26 @@ export default class MaterialTableLayout extends React.Component {
     };
   }
 
+  componentWillMount(){
+    console.log("coucou");
+  }
+
+  componentDidUpdate(){
+    console.log("fini ");
+    NProgress.done();
+  }
+
   // Depends on browser
   componentDidMount() {
+    
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         position => {
-          console.log(position);
+          // console.log(position);
           this.setState({ position: position, currently: "success" });
         },
         error => {
-          console.log(error);
+          // console.log(error);
           this.setState({ currently: "error" });
         }
       );
