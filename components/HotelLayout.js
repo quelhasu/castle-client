@@ -1,6 +1,7 @@
 import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button } from "reactstrap";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet-universal";
 import { Line } from 'react-chartjs-2';
+import Link from "next/link";
 
 const mediaStyle = {
   maxWidth: "100%",
@@ -29,7 +30,6 @@ const mapContainerStyle = {
 
 const options = {
   scaleShowGridLines: false,
-  // scaleGridLineColor: 'rgba(0,0,0,.05)',
   scaleShowHorizontalLines: true,
   scaleShowVerticalLines: true,
   bezierCurve: true,
@@ -41,7 +41,6 @@ const options = {
   datasetStroke: true,
   datasetStrokeWidth: 2,
   datasetFill: true,
-  // legendTemplate: '<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
   scales: {
     xAxes: [{
       gridLines: {
@@ -59,13 +58,17 @@ const options = {
 class HotelLayout extends React.Component {
   constructor(props) {
     super(props)
+    if(props.hotel.disponibilites){
     this.state = {
       dataOne: chartDataOne(props),
       dataSecond: chartDataSecond(props)
     }
   }
+  }
 
   render() {
+    var location = `${this.props.hotel.location.address.localityAddress} ${this.props.hotel.location.address.postalCode.match(/\d*/)[0]}`
+    var services = this.props.hotel.services.join(' • ')
     return (
       <div>
         <style jsx global>{`
@@ -80,28 +83,48 @@ class HotelLayout extends React.Component {
 
           <CardBody>
             <CardTitle>
-              <i className="fas fa-hotel" /> {this.props.hotel.name}
-            </CardTitle>
-            <CardTitle>
+              <i className="fas fa-hotel"/> {this.props.hotel.name}
+              </CardTitle>
+              <CardTitle>
               <i className="fas fa-utensils" /> {this.props.hotel.restaurant.name}
             </CardTitle>
-            {/* <CardSubtitle>Card subtitle</CardSubtitle> */}
             <CardText>
-              Some quick example text to build on the card title and make up the bulk of the card's content.
-        </CardText>
-            {/* <Button>Button</Button> */}
-
+              <b>From</b>: {this.props.hotel.from_price} €
+            </CardText>
+            <CardText>
+              <p className="text-muted">{services}</p>
+            </CardText>
+            <Button outline>
+              <Link href={`${this.props.hotel.link}`}>Hotel</Link>
+            </Button>{' '}
+            <Button outline>
+              <Link href={`${this.props.hotel.restaurant.michelin_url}`}>Restaurant</Link>
+            </Button>{' '}
+            <br/><br/>
+            {this.props.hotel.disponibilites ? (
+            <div>
+                      <Line
+                      data={this.state.dataOne}
+                      options={options}
+                      width="100" height="40"
+                    />
+                    <Line
+                      data={this.state.dataSecond}
+                      options={options}
+                      width="100" height="40"
+                    />
+                    </div>
+                    ) :(
+                      <div></div>
+                    )}
+          
+            <CardText>
+            <small className="text-muted">
+              <i className="fas fa-map-marker-alt"/> {location}
+            </small>
+          </CardText>
           </CardBody>
-          <Line
-          data={this.state.dataOne}
-          options={options}
-          width="100" height="40"
-        />
-        <Line
-          data={this.state.dataSecond}
-          options={options}
-          width="100" height="40"
-        />
+
         </Card>
         <Map center={[this.props.hotel.location.center.Lat, this.props.hotel.location.center.Lng]} zoom={10}>
           <TileLayer

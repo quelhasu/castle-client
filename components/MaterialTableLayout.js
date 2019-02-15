@@ -130,20 +130,28 @@ export default class MaterialTableLayout extends React.Component {
             {
               title: "Price",
               field: "price",
-              type: "currency",
-              customSort: (a, b) => a.price - b.price,
+              customSort: (a, b) => parseFloat(a.price) - parseFloat(b.price),
+              render: rowData => {
+                return (
+                  <div>
+                    {rowData.price} €
+                  </div>
+                )
+              },
               cellStyle: data => {
                 var priceArray = this.props.hotels
-                  .filter(el => {
-                    return !el.from_price ? false : true;
-                  })
-                  .map(el => {
-                    return Number(el.from_price);
-                  });
-                if (data == Math.min(...priceArray))
+                .filter(el => {
+                  return !el.from_price ? false : true;
+                })
+                .map(el => {
+                  return parseFloat(el.from_price);
+                });
+                if (parseFloat(data) == Math.min(...priceArray)){
                   return { color: "YellowGreen", fontWeight: "bolder", fontSize: "0.8rem" };
-                if (data == Math.max(...priceArray)) return { color: "red", fontWeight: "bolder", fontSize: "0.8rem" };
-                return { fontSize: "0.8rem" };
+                }
+                if (parseFloat(data) == Math.max(...priceArray)) {
+                  return { color: "red", fontWeight: "bolder", fontSize: "0.8rem" };
+                }
               }
             },
             {
@@ -156,8 +164,8 @@ export default class MaterialTableLayout extends React.Component {
                     <img
                       src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Etoile_Michelin-1.svg/938px-Etoile_Michelin-1.svg.png"
                       style={{
-                        maxWidth: "100%",
-                        maxHeight: "100%",
+                        maxWidth: "80%",
+                        maxHeight: "80%",
                         margin: "0 2px",
                         objectFit: "contain",
                         display: rate >= 1 ? "inline" : "none"
@@ -166,8 +174,8 @@ export default class MaterialTableLayout extends React.Component {
                     <img
                       src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Etoile_Michelin-1.svg/938px-Etoile_Michelin-1.svg.png"
                       style={{
-                        maxWidth: "100%",
-                        maxHeight: "100%",
+                        maxWidth: "80%",
+                        maxHeight: "80%",
                         margin: "0 2px",
                         objectFit: "contain",
                         display: rate > 1 ? "inline" : "none"
@@ -176,8 +184,8 @@ export default class MaterialTableLayout extends React.Component {
                     <img
                       src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Etoile_Michelin-1.svg/938px-Etoile_Michelin-1.svg.png"
                       style={{
-                        maxWidth: "100%",
-                        maxHeight: "100%",
+                        maxWidth: "80%",
+                        maxHeight: "80%",
                         margin: "0 2px",
                         objectFit: "contain",
                         display: rate > 2 ? "inline" : "none"
@@ -187,11 +195,6 @@ export default class MaterialTableLayout extends React.Component {
                 );
               }
             }
-            // {
-            //   title: "Doğum Yeri",
-            //   field: "birthCity",
-            //   lookup: { 34: "İstanbul", 63: "Şanlıurfa" }
-            // }
           ]}
           data={this.props.hotels.map(el => {
             return {
@@ -199,13 +202,13 @@ export default class MaterialTableLayout extends React.Component {
               restaurant_name: el.restaurant.name,
               location: el.location.address.postalCode + el.location.address.countryAddress,
               michelin_rating: el.restaurant.michelin_rating,
-              price: el.from_price,
               hotel_url: el.link,
               restaurant_url: el.restaurant.michelin_url,
               id: el.id,
               media: el.media,
               lat: el.location.center.Lat,
-              lng: el.location.center.Lng
+              lng: el.location.center.Lng,
+              price: el.from_price,
             };
           })}
           title="Hotels & Restaurants"

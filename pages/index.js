@@ -31,7 +31,7 @@ export default class Index extends React.Component {
   static async getInitialProps() {
     const res = await fetch(`${config.api_url}/hotel/france`);
     const data = await res.json();
-  
+    
     console.log(`Show data fetched. Count: ${data.length}`);
   
     return {
