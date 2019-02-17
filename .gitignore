@@ -183,6 +183,7 @@ dist/
 
 exports
 
-config/
+config/michelin.js
+config/*.json
 
 .next
