@@ -6,25 +6,26 @@ const app = next({ dev })
 const handle = app.getRequestHandler()
 
 app.prepare()
-.then(() => {
-  const server = express()
+  .then(() => {
+    const server = express()
 
-  server.get('/h/:destination/:id', (req, res)=>{
-    const actualPage = '/hotel'
-    const queryParams = { id: req.params.id, destination: req.params.destination }
-    app.render(req, res, actualPage, queryParams)
-  })
+    server.get('/h/:destination/:id', (req, res) => {
+      const actualPage = '/hotel'
+      const queryParams = { id: req.params.id, destination: req.params.destination }
+      app.render(req, res, actualPage, queryParams)
+    })
 
-  server.get('*', (req, res) => {
-    return handle(req, res)
-  })
+    server.get('*', (req, res) => {
+      return handle(req, res)
+    })
 
-  server.listen(process.env.PORT || 3000, (err) => {
-    if (err) throw err
-    console.log('> Ready on http://localhost:3000')
+    server.listen(process.env.PORT || 3000, (err) => {
+      if (err) throw err
+      console.log('> Ready on http://localhost:3000')
+    })
+    
   })
-})
-.catch((ex) => {
-  console.error(ex.stack)
-  process.exit(1)
-})
+  .catch((ex) => {
+    console.error(ex.stack)
+    process.exit(1)
+  })

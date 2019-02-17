@@ -1,5 +1,7 @@
 import Link from "next/link";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Favicon from 'react-favicon';
+
 import {
   Collapse,
   Navbar,
@@ -37,6 +39,8 @@ const navbarStyle = {
 
 const Header = () => (
   <div style={headerStyle}>
+  <title>Castle</title>
+  <Favicon url="/static/favicon.ico"/>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
   <link rel='stylesheet' type='text/css' href='/static/nprogress.css' />
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"/>
