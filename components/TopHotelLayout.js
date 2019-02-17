@@ -93,6 +93,15 @@ class TopHotelLayout extends React.Component {
               <CardTitle>
               <i className="fas fa-utensils" /> {this.props.hotel.restaurant.name}
             </CardTitle>
+            <CardTitle>
+              <img height="17" src="https://www.theoriagallery.it/wp-content/uploads/2015/04/stellamichelinlogo.png"/> {' '}
+              {this.props.hotel.restaurant.michelin_rating} MICHELIN {' '}
+              { this.props.hotel.restaurant.michelin_rating <= 1 ? (
+                <span>star</span>
+              ) : (
+                <span>stars</span>
+              )}
+            </CardTitle>
             <CardText>
               <b>From</b>: {this.props.hotel.from_price} €
             </CardText>
@@ -103,22 +112,6 @@ class TopHotelLayout extends React.Component {
               <a className="secondary" as={`/h/france/${this.props.hotel.id}`} href={`/h/france/${this.props.hotel.id}`} >More...</a>
             </Button>{' '}
             <br/><br/>
-            {/* {this.props.hotel.disponibilites ? (
-            <div>
-                      <Line
-                      data={this.state.dataOne}
-                      options={options}
-                      width="100" height="30"
-                    />
-                    <Line
-                      data={this.state.dataSecond}
-                      options={options}
-                      width="100" height="30"
-                    />
-                    </div>
-                    ) :(
-                      <div></div>
-                    )} */}
           
             <CardText>
             <small className="text-muted">
