@@ -8,8 +8,9 @@
     "dev2": "next",
     "dev": "node server.js",
     "build": "next build",
-    "start2": "NODE_ENV=production node server.js",
-    "start": "next start -p $PORT",
+    "start": "NODE_ENV=production node server.js",
+    "start2": "next start -p $PORT",
+    "deploy": "npm run build",
     "heroku-postbuild": "npm run build",
     "analyze": "cross-env ANALYZE=1 next build",
     "export": "npm run build && next export"
