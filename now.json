@@ -1,4 +1,4 @@
 {
   "version": 2,
-  "alias": "esilv"
+  "builds": [{ "src": "package.json", "use": "@now/next" }]
 }
