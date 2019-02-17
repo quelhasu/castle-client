@@ -3,6 +3,8 @@
 # Castle Client
 > Client interface for Castle project
 
+You can visit this [link](https://castle-client.herokuapp.com/) to seet it work.
+
 This tool allow accessing firebase database hotels in order to use it in the client interface.
 
 [NextJS](https://nextjs.org/) React JS framework.  
@@ -17,6 +19,7 @@ This project is a micro-service of _Castle_ project including [castle-api](https
 [Initial README](init-README.md)
 
 ## How to use it 
+
 - [Docker Usage](#docker)
 - [Routes](#routes)
 
