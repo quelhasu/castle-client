@@ -229,19 +229,6 @@ export default class MaterialTableLayout extends React.Component {
                 window.open(rowData.restaurant_url, "_blank");
               }
             })
-            // {
-            //   icon: "navigate_next",
-            //   tooltip: "Show details",
-            //   onClick: (event, rowData) => {
-            //     alert("You clicked user " + rowData.name);
-            //   },
-            //   iconthis.props: {
-            //     style: {
-            //       fontSize: 30
-            //       // color: 'green',
-            //     }
-            //   }
-            // }
           ]}
           options={{
             pageSize: 15,

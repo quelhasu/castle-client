@@ -7,7 +7,12 @@ import config from "../config/config";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NProgress from 'nprogress'
 import Router from 'next/router';
+import { parse } from "querystring";
 const MaterialTableLayout = dynamic(import("../components/MaterialTableLayout.js"));
+const TopHotelLayout = dynamic(import("../components/TopHotelLayout"));
+import { Container, Row, Col } from 'react-grid-system';
+
+
 
 
 Router.events.on('routeChangeStart', url => {
@@ -17,7 +22,6 @@ Router.events.on('routeChangeStart', url => {
 Router.events.on('routeChangeComplete', () => NProgress.done())
 Router.events.on('routeChangeError', () => NProgress.done())
 
-console.log(config.api_url);
 
 export default class Index extends React.Component {
 
@@ -31,11 +35,16 @@ export default class Index extends React.Component {
   static async getInitialProps() {
     const res = await fetch(`${config.api_url}/hotel/france`);
     const data = await res.json();
+
+    var topHotels = data;
+    topHotels.sort((a,b) => parseFloat(a.from_price) - parseFloat(b.from_price));
+    topHotels = topHotels.slice(0,3);
     
     console.log(`Show data fetched. Count: ${data.length}`);
   
     return {
-      hotels: data
+      hotels: data,
+      topHotels: topHotels
     };
   }
 
@@ -44,18 +53,29 @@ export default class Index extends React.Component {
     NProgress.start();
     NProgress.configure({ easing: 'ease', speed: 500 });
   }
+  
 
   render() {
     let { currently } = this.state;
+    var topHotels = this.props.topHotels.map(el => {return <Col xs={10} md={4}><TopHotelLayout hotel={el}/></Col>})
     return (
       <Layout>
     <style jsx>{`
       .MuiTableCell-body-138 {
         font-size:1rem !important;
       }
+
     `}</style>
     {currently === "loading" ? '' : (
-      <MaterialTableLayout hotels={this.props.hotels}/>
+          <div>
+            <h3>Selection</h3>
+            <Container fluid style={{ marginBottom : "50px", marginTop: "30px"}}>
+              <Row>
+                {topHotels}
+              </Row>
+            </Container>
+            <MaterialTableLayout hotels={this.props.hotels} />
+          </div>
     )}
     
   </Layout>

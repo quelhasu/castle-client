@@ -1,7 +1,7 @@
 import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button } from "reactstrap";
-import { Map, Marker, Popup, TileLayer } from "react-leaflet-universal";
 import { Line } from 'react-chartjs-2';
 import Link from "next/link";
+
 
 const mediaStyle = {
   maxWidth: "100%",
@@ -14,18 +14,15 @@ const mediaContainerStyle = {
   width: "100%",
 };
 
-const cardStyle = {
-  // maxWidth: "50%",
-  // margin: "auto"
-  maxWidth: '30%',
-  position: 'absolute',
-  margin: 'auto',
-  right: '10px',
-  top: '90px'
-};
 
-const mapContainerStyle = {
-  // height: "500px",
+const cardStyle = {
+  width: "100%",
+  // margin: "auto"
+  // maxWidth: '30%',
+  // position: 'absolute',
+  // margin: 'auto',
+  // right: '10px',
+  // top: '90px'
 };
 
 const options = {
@@ -58,25 +55,30 @@ const options = {
 }
 }
 
-class HotelLayout extends React.Component {
+class TopHotelLayout extends React.Component {
   constructor(props) {
     super(props)
-    if(props.hotel.disponibilites){
     this.state = {
-      dataOne: chartDataOne(props),
-      dataSecond: chartDataSecond(props)
-    }
+      // dataOne: chartDataOne(props),
+      // dataSecond: chartDataSecond(props)
   }
   }
+  
 
   render() {
-    var location = `${this.props.hotel.location.address.localityAddress} ${this.props.hotel.location.address.postalCode.match(/\d*/)[0]}`
-    var services = this.props.hotel.services.join(' • ')
+    // var location = `${this.props.hotel.location.address.localityAddress} ${this.props.hotel.location.address.postalCode.match(/\d*/)[0]}`
     return (
       <div>
-        <style jsx global>{`
-      .bodyStyle{
-        padding: 0;
+        <style jsx>{`
+      a {
+        text-decoration: none;
+        color: #28a745;
+      }
+      a.secondary{
+        color:#000;
+      }
+      a:hover{
+        color:white !important;
       }
     `}</style>
         <Card style={cardStyle}>
@@ -94,17 +96,14 @@ class HotelLayout extends React.Component {
             <CardText>
               <b>From</b>: {this.props.hotel.from_price} €
             </CardText>
-            <CardText>
-              <p className="text-muted">{services}</p>
-            </CardText>
-            <Button outline>
-              <Link href={`${this.props.hotel.link}`}>Hotel</Link>
+            <Button size="sm" outline color="success">
+              <a href={`${this.props.hotel.link}`}>Book</a>
             </Button>{' '}
-            <Button outline>
-              <Link href={`${this.props.hotel.restaurant.michelin_url}`}>Restaurant</Link>
+            <Button size="sm" outline color="secondary">
+              <a className="secondary" as={`/h/france/${this.props.hotel.id}`} href={`/h/france/${this.props.hotel.id}`} >More...</a>
             </Button>{' '}
             <br/><br/>
-            {this.props.hotel.disponibilites ? (
+            {/* {this.props.hotel.disponibilites ? (
             <div>
                       <Line
                       data={this.state.dataOne}
@@ -119,27 +118,16 @@ class HotelLayout extends React.Component {
                     </div>
                     ) :(
                       <div></div>
-                    )}
+                    )} */}
           
             <CardText>
             <small className="text-muted">
-              <i className="fas fa-map-marker-alt"/> {location}
+              {/* <i className="fas fa-map-marker-alt"/> {location} */}
             </small>
           </CardText>
           </CardBody>
 
         </Card>
-        <Map center={[this.props.hotel.location.center.Lat, this.props.hotel.location.center.Lng]} zoom={10}>
-          <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          />
-          <Marker position={[this.props.hotel.location.center.Lat, this.props.hotel.location.center.Lng]}>
-            <Popup>
-              {this.props.hotel.name}
-            </Popup>
-          </Marker>
-        </Map>
       </div>
     )
   }
@@ -178,4 +166,4 @@ function chartDataSecond(props) {
   }
 }
 
-export default HotelLayout;
+export default TopHotelLayout;
