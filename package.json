@@ -12,8 +12,8 @@
     "start": "node server.js",
     "start2": "next start -p $PORT",
     "deploy": "npm run build",
-    "heroku-postbuild": "npm run build",
-    "postinstall": "npm run build",
+    "heroku-postbuild": "next build",
+    "postinstall": "next build",
     "analyze": "cross-env ANALYZE=1 next build",
     "export": "npm run build && next export"
   },
