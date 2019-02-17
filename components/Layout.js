@@ -1,12 +1,5 @@
 import Header from "./Header";
 
-const layoutStyle = {
-  // margin: 20,
-  // border: '1px solid #DDD'
-  // fontFamily: "'Montserrat', sans-serif !important"
-};
-
-
 const Layout = props => (
   <div>
     <style jsx global>{`

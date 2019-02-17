@@ -15,8 +15,6 @@ const mediaContainerStyle = {
 };
 
 const cardStyle = {
-  // maxWidth: "50%",
-  // margin: "auto"
   maxWidth: '30%',
   position: 'absolute',
   margin: 'auto',

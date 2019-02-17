@@ -13,8 +13,6 @@ const TopHotelLayout = dynamic(import("../components/TopHotelLayout"));
 import { Container, Row, Col } from 'react-grid-system';
 
 
-
-
 Router.events.on('routeChangeStart', url => {
   console.log(`Loading: ${url}`)
   NProgress.start()
