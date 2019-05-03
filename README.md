@@ -3,7 +3,7 @@
 # Castle Client
 > Client interface for Castle project
 
-You can visit this [link](https://castle-client.herokuapp.com/) to seet it work.
+You can visit this [link](https://castle-client.herokuapp.com/) to seet it working.
 
 This tool allow accessing firebase database hotels in order to use it in the client interface.
 
