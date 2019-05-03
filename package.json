@@ -26,7 +26,7 @@
   "homepage": "https://github.com/quelhasu/castle#readme",
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
-    "bootstrap": "^4.2.1",
+    "bootstrap": ">=4.3.1",
     "chart.js": "^2.7.3",
     "cross-env": "^5.0.1",
     "express": "^4.16.4",
